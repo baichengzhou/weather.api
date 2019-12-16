@@ -1,0 +1,27 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.ehcache.org/v3"
+        xmlns:jsr107="http://www.ehcache.org/v3/jsr107"
+        xsi:schemaLocation="
+            http://www.ehcache.org/v3 http://www.ehcache.org/schema/ehcache-core-3.0.xsd
+            http://www.ehcache.org/v3/jsr107 http://www.ehcache.org/schema/ehcache-107-ext-3.0.xsd">
+    <service>
+        <jsr107:defaults enable-statistics="true"/>
+    </service>
+
+    <!-- user 为该缓存名称 对应@Cacheable的属性cacheNames-->
+    <cache alias="weather_cache" >
+        <!-- 指定缓存 key 类型，对应@Cacheable的属性key -->
+        <key-type>java.lang.String</key-type>
+        <!-- 配置value类型 -->
+        <value-type>com.sojson.weather.api.demo.dto.WeatherDto</value-type>
+        <expiry>
+            <!-- 缓存 ttl，单位为分钟，现在设置的是2个小时 -->
+            <ttl unit="minutes">120</ttl>
+        </expiry>
+        <resources>
+            <!-- 分配资源大小 -->
+            <heap unit="entries">2000</heap>
+            <offheap unit="MB">100</offheap>
+        </resources>
+    </cache>
+</config>
